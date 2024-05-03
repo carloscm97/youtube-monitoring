@@ -2,6 +2,8 @@
 
 Solution for automatically monitor statistics of YouTube channels and the videos belonging to those channels. The ETL process is carried out in **Apache Nifi**, the storage is made in a **PostgreSQL** database and the visualisation is handled by **Grafana + ECharts**. All these services run and communicate with each other through their respective **Docker** containers.
 
+![](docs/images/cover.png)
+
 ---
 
 # Contents
@@ -60,7 +62,9 @@ docker compose -f docker-compose.yml down
 
 3. Drag *'Template'* from top navigation bar to the canvas. Select the template just uploaded.
 
-4. RIght click on the canvas. *'Variables'*. Set the following list of variables (*+* button to add each one):
+![](docs/images/nifi_general_overview.png)
+
+1. RIght click on the canvas. *'Variables'*. Set the following list of variables (*+* button to add each one):
 
 | name                       | value                     |
 | -------------------------- | ------------------------- |
@@ -134,13 +138,15 @@ An example configuration would be as follows:
 
 **Second element/configuration explanation**: monitoring is done every two days in which the channel information is not updated but the video information is updated in the process. We use the API key *yyyy....* is used in the Youtube API call for the fourth and last channel.
 
-6. RIght click on the canvas. *'Configure'*. *'Controller Services'*. *+* button. Add a new *DistributedMapCacheServer* with default configuration (for any reason this service cannot be set by the template). Enable this service (*lightning* icon).
+6. Right click on the canvas. *'Configure'*. *'Controller Services'*. *+* button. Add a new *DistributedMapCacheServer* with default configuration (for any reason this service cannot be set by the template). Enable this service (*lightning* icon).
 
-7. Still in *'Controller Services'*. Modify *DBCPConnectionPool*. *'Properties'*. *'Password'*. Set *nifi* as default password. *'Apply'*. Enable this service.
+![](docs/images/nifi_services.png)
 
-8. Enable the rest of services (*DistributedMapCacheClienteService_ApiKeyManagement_WaitNotify*, *AvroSchemaRegistry*, etc.). Before clicking, try to select *Scope*: *Service and referencing components* in order to enable in cascade all services dependent on it.
+1. Still in *'Controller Services'*. Modify *DBCPConnectionPool*. *'Properties'*. *'Password'*. Set *nifi* as default password. *'Apply'*. Enable this service.
 
-9. To boot up all processors: RIght click on the canvas. *'Start'*. Optional: if you want to start the process now instead of waiting for the scheduler to take over (by default, hourly), go to '*Read Input Parameters FIle*' process group, stop *'GenerateFlowFile'* processor, right click on the processor and select *'Run Once'* .
+2. Enable the rest of services (*DistributedMapCacheClienteService_ApiKeyManagement_WaitNotify*, *AvroSchemaRegistry*, etc.). Before clicking, try to select *Scope*: *Service and referencing components* in order to enable in cascade all services dependent on it.
+
+3. To boot up all processors: RIght click on the canvas. *'Start'*. Optional: if you want to start the process now instead of waiting for the scheduler to take over (by default, hourly), go to '*Read Input Parameters FIle*' process group, stop *'GenerateFlowFile'* processor, right click on the processor and select *'Run Once'* .
 
 ## 2.3. Grafana configuration
 
@@ -163,6 +169,8 @@ If we want to modify the scheduling of this process: **Read Input Parameters FIl
 **Note**: If *update_period_in_days* is set to 0 it means that there is no restraint of days between monitoring and thus monitoring will be performed according to the *CRON* configured in the Nifi GenerateFlowFile.
 
 The operations performed in each processing group are explained by the Nifi notes placed on the canvas and the name assigned to each processor itself, as can be seen in the following example image:
+
+![](docs/images/nifi_process_group.png)
 
 The workflow of each processing group is summarised as follows:
 
@@ -281,21 +289,43 @@ The workflow of each processing group is summarised as follows:
 
 Basic information on each of the selected channels
 
+![](docs/images/grafana_dashboard_youtube_channel.png)
+
 ### Youtube Channel Analysis
 
 Overview of the videos belonging to the channel.
+
+![](docs/images/grafana_dashboard_youtube_channel_analysis_1.png)
+
+![](docs/images/grafana_dashboard_youtube_channel_analysis_2.png)
 
 ### Youtube Channel Analysis Advanced
 
 More detailed view of the videos belonging to the channel.
 
+![](docs/images/grafana_dashboard_youtube_channel_analysis_advanced_1.png)
+
+![](docs/images/grafana_dashboard_youtube_channel_analysis_advanced_2.png)
+
+![](docs/images/grafana_dashboard_youtube_channel_analysis_advanced_3.png)
+
 ### Youtube Channel Videos
 
 Compare the statistics of selected videos from two different channels with each other.
 
+![](docs/images/grafana_dashboard_youtube_channel_videos_1.gif)
+
+![](docs/images/grafana_dashboard_youtube_channel_videos_2.png)
+
+![](docs/images/grafana_dashboard_youtube_channel_videos_3.gif)
+
 ### Error Messages & Api Key Quota
 
 Overview of error messages produced in the Nifi ETL process and API Key status and quota.
+
+![](docs/images/grafana_dashboard_error_messages_api_key_quota_2.png)
+
+![](docs/images/grafana_dashboard_error_messages_api_key_quota_3.png)
 
 # 4. Troubleshooting
 
