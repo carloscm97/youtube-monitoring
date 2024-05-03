@@ -1,0 +1,1137 @@
+{
+  "dashboard": {
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [
+          "youtube"
+        ],
+        "targetBlank": false,
+        "title": "Navigate",
+        "tooltip": "",
+        "type": "dashboards",
+        "url": ""
+      }
+    ],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 12,
+          "x": 6,
+          "y": 0
+        },
+        "id": 118,
+        "options": {
+          "SVGBaseFix": true,
+          "add100Percentage": false,
+          "calcsMutation": "none",
+          "centerAlignContent": true,
+          "codeData": "{\n  \"text\": \"Random text\"\n}",
+          "css": "body {\n  background: #e0e5ec;\n}\nh1 {\n  position: relative;\n  text-align: center;\n  color: #353535;\n  font-size: 50px;\n  font-family: \"Cormorant Garamond\", serif;\n}\na {\n    color: inherit;\n    text-decoration: none;\n    font-family: 'Lato', sans-serif;\n    font-size: 18px;\n}\np {\n  font-family: 'Lato', sans-serif;\n  font-weight: 300;\n  text-align: center;\n  font-size: 18px;\n  color: #676767;\n}\n.frame {\n  width: 90%;\n  margin: 40px auto;\n  text-align: center;\n}\nbutton {\n  margin: 20px;\n  outline: none;\n}\n.custom-btn {\n  width: 130px;\n  height: 40px;\n  padding: 10px 25px;\n  border: 2px solid #000;\n  font-family: 'Lato', sans-serif;\n  font-weight: 500;\n  background: transparent;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  position: relative;\n  display: inline-block;\n}\n\n/* 1 */\n.btn-1 {\n  transition: all 0.3s ease;\n}\n.btn-1:hover {\n   box-shadow:\n   -7px -7px 20px 0px #fff9,\n   -4px -4px 5px 0px #fff9,\n   7px 7px 20px 0px #0002,\n   4px 4px 5px 0px #0001;\n}",
+          "dynamicData": false,
+          "dynamicFieldDisplayValues": false,
+          "dynamicHtmlGraphics": false,
+          "dynamicProps": false,
+          "html": "<div class=\"frame\">\n  <button class=\"custom-btn btn-1\"><a href=\"http://localhost:8972/d/m7BvUSxIk/youtube-channel?orgId=1&from=now-7d\">1 week</a></button>\n  <button class=\"custom-btn btn-1\"><a href=\"http://localhost:8972/d/m7BvUSxIk/youtube-channel?orgId=1&from=now-14d\">2 weeks</a></button>\n  <button class=\"custom-btn btn-1\"><a href=\"http://localhost:8972/d/m7BvUSxIk/youtube-channel?orgId=1&from=now-30d\">1 month</a></button>\n  <button class=\"custom-btn btn-1\"><a href=\"http://localhost:8972/d/m7BvUSxIk/youtube-channel?orgId=1&from=now-365d\">1 year</a></button>\n</div>",
+          "onInit": "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\n\nif (htmlgraphicsText) {\n  htmlgraphicsText.textContent = customProperties.text;\n\n  // Change the text color based on the theme\n  if (theme.isDark) {\n    htmlgraphicsText.style.color = 'green';\n  } else {\n    htmlgraphicsText.style.color = 'red';\n  }\n}\n",
+          "onInitOnResize": false,
+          "onRender": "",
+          "overflow": "visible",
+          "panelupdateOnMount": true,
+          "reduceOptions": {
+            "calcs": []
+          },
+          "renderOnMount": false,
+          "rootCSS": "",
+          "useGrafanaScrollbar": true
+        },
+        "pluginVersion": "9.0.0",
+        "transparent": true,
+        "type": "gapit-htmlgraphics-panel"
+      },
+      {
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 3
+        },
+        "id": 28,
+        "panels": [],
+        "repeat": "channel_info__channel_name",
+        "title": "${channel_info__channel_name}",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": false,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 50,
+              "gradientMode": "hue",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "smooth",
+              "lineWidth": 5,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 0,
+          "y": 4
+        },
+        "hideTimeOverride": false,
+        "id": 10,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  t.tag::timestamptz as time,\n  t.channel_name,\n-- In case there are several values for a video on the same day or there are several videos with the same title, we take the record with the highest number of views.\n  MAX(t.view_count) AS \"View Count\"\nFROM\n(SELECT\n  cs.view_count,\n  generate_series (\n    time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeFrom()::timestamp with time zone))\n    ), time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeTo()::timestamp with time zone))\n    ), '1 day'\n  ) AS tag,\n  cs.\"timestamp\",\n  ci.channel_name\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  $__timeFilter(\"timestamp\") AND\n  ci.channel_name IN ($channel_info__channel_name)\n) t\nWHERE\n  t.timestamp >= t.tag\n  AND t.timestamp <= t.tag + interval '1 day'\nGROUP BY time, channel_name\nORDER BY time, channel_name",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            },
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "transparent": true,
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Field"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 201
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 12,
+          "x": 6,
+          "y": 4
+        },
+        "id": 17,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "enablePagination": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "WITH cte_channel_info AS (\nSELECT\n  ci.channel_creation_date,\n  ci.channel_topic_list,\n  cs.video_count,\n  cs.\"timestamp\",\n  vi.video_title,\n  vi.video_creation_date\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nINNER JOIN\n  youtube_stats.video_info vi\nON\n  (cs.channel_id = vi.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name)\nORDER BY\n  cs.\"timestamp\" DESC, vi.video_creation_date DESC\nLIMIT 1\n), cte_topic_list AS (\nSELECT\n  STRING_AGG(topic, ', ') AS topic_list\nFROM\n(\nSELECT\n-- Join the array of topics into a single string.\n  JSONB_ARRAY_ELEMENTS(ci.channel_topic_list)->>'topic_category' AS topic\nFROM\n  youtube_stats.channel_info ci\nWHERE\n  ci.channel_name IN ($channel_info__channel_name)\n) t\n)\n-- Transform a horizontal table into a vertical one\nSELECT\n   unnest(array['Channel Creation Date', 'Channel Video Count', 'Latest Video', 'Latest Video Date', 'Channel Topic List','Latest Monitoring Date']) AS \"Field\",\n   unnest(array[TO_CHAR(channel_creation_date, 'YYYY-MM-DD HH24:MM:SS'), video_count::TEXT, video_title, TO_CHAR(video_creation_date, 'YYYY-MM-DD HH24:MM:SS'), REPLACE(ctl.topic_list, '_', ' '), TO_CHAR(\"timestamp\", 'YYYY-MM-DD')]) AS \"Value\"\nFROM\n  cte_channel_info cci,\n  cte_topic_list ctl",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            },
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": false,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 50,
+              "gradientMode": "hue",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "smooth",
+              "lineWidth": 5,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 18,
+          "y": 4
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "editorMode": "code",
+            "format": "time_series",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  t.tag::timestamptz as time,\n  t.channel_name,\n-- In case there are several values for a video on the same day or there are several videos with the same title, we take the record with the highest number of views.\n  MAX(t.subscriber_count) AS \"Subscriber Count\"\nFROM\n(SELECT\n  cs.subscriber_count,\n  generate_series (\n    time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeFrom()::timestamp with time zone))\n    ), time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeTo()::timestamp with time zone))\n    ), '1 day'\n  ) AS tag,\n  cs.\"timestamp\",\n  ci.channel_name\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  $__timeFilter(\"timestamp\") AND\n  ci.channel_name IN ($channel_info__channel_name)\n) t\nWHERE\n  t.timestamp >= t.tag\n  AND t.timestamp <= t.tag + interval '1 day'\nGROUP BY time, channel_name\nORDER BY time, channel_name",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            },
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "transparent": true,
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "semi-dark-blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 0,
+          "y": 11
+        },
+        "id": 42,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  cs.view_count  AS \"View Count $time_to\"\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  timestamp <= $__timeTo()::timestamp with time zone\nORDER BY cs.\"timestamp\" DESC\nLIMIT 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 4,
+          "y": 11
+        },
+        "id": 43,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  cs.view_count  AS \"View Count $time_from\"\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  timestamp >= $__timeFrom()::timestamp with time zone\nORDER BY cs.\"timestamp\" ASC\nLIMIT 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "purple",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 8,
+          "y": 11
+        },
+        "id": 62,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "WITH cte_recent_count AS (\nSELECT\n  cs.view_count\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  timestamp <= $__timeTo()::timestamp with time zone\nORDER BY cs.\"timestamp\" DESC\nLIMIT 1\n), cte_old_count AS (\nSELECT\n  cs.view_count\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  timestamp >= $__timeFrom()::timestamp with time zone\nORDER BY cs.\"timestamp\" ASC\nLIMIT 1\n)\nSELECT\n  crc.view_count - coc.view_count AS \"View Count Diff\"\nFROM\n  cte_recent_count crc,\n  cte_old_count coc",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "semi-dark-green",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 12,
+          "y": 11
+        },
+        "id": 84,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  cs.subscriber_count  AS \"Subscriber Count $time_to\"\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  timestamp <= $__timeTo()::timestamp with time zone\nORDER BY cs.\"timestamp\" DESC\nLIMIT 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-green",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 16,
+          "y": 11
+        },
+        "id": 85,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  cs.subscriber_count  AS \"Subscriber Count $time_from\"\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  timestamp >= $__timeFrom()::timestamp with time zone\nORDER BY cs.\"timestamp\" ASC\nLIMIT 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "orange",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 20,
+          "y": 11
+        },
+        "id": 86,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "WITH cte_recent_count AS (\nSELECT\n  cs.subscriber_count\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  timestamp <= $__timeTo()::timestamp with time zone\nORDER BY cs.\"timestamp\" DESC\nLIMIT 1\n), cte_old_count AS (\nSELECT\n  cs.subscriber_count\nFROM\n  youtube_stats.channel_stats cs\nINNER JOIN\n  youtube_stats.channel_info ci\nON\n  (cs.channel_id = ci.channel_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  timestamp >= $__timeFrom()::timestamp with time zone\nORDER BY cs.\"timestamp\" ASC\nLIMIT 1\n)\nSELECT\n  crc.subscriber_count - coc.subscriber_count AS \"Subscriber Count Diff\"\nFROM\n  cte_recent_count crc,\n  cte_old_count coc",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "type": "stat"
+      }
+    ],
+    "schemaVersion": 39,
+    "tags": [
+      "youtube",
+      "channel"
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": [
+              "Anitta",
+              "Bad Bunny",
+              "Feid",
+              "Shakira"
+            ],
+            "value": [
+              "Anitta",
+              "Bad Bunny",
+              "Feid",
+              "Shakira"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "edk32zh8spnnke"
+          },
+          "definition": "WITH cte_channel_name AS (\nSELECT\n  channel_name\nFROM\n  youtube_stats.channel_info\nORDER BY\n  channel_name ASC\n)\nSELECT\n  channel_name\nFROM\n  cte_channel_name\nUNION ALL\nSELECT\n 'no data' AS channel_name\nFROM\n  (SELECT 1) a\nLEFT JOIN\n  cte_channel_name b ON FALSE\nWHERE\n  NOT EXISTS (SELECT 1 FROM cte_channel_name)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Channel Name",
+          "multi": true,
+          "name": "channel_info__channel_name",
+          "options": [],
+          "query": "WITH cte_channel_name AS (\nSELECT\n  channel_name\nFROM\n  youtube_stats.channel_info\nORDER BY\n  channel_name ASC\n)\nSELECT\n  channel_name\nFROM\n  cte_channel_name\nUNION ALL\nSELECT\n 'no data' AS channel_name\nFROM\n  (SELECT 1) a\nLEFT JOIN\n  cte_channel_name b ON FALSE\nWHERE\n  NOT EXISTS (SELECT 1 FROM cte_channel_name)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "2024-04-01",
+            "value": "2024-04-01"
+          },
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "edk32zh8spnnke"
+          },
+          "definition": "SELECT\n  TO_CHAR(ts::timestamptz, 'YYYY-MM-DD')\nFROM\n  (VALUES ($__timeFrom())) t(ts)",
+          "hide": 2,
+          "includeAll": false,
+          "multi": false,
+          "name": "time_from",
+          "options": [],
+          "query": "SELECT\n  TO_CHAR(ts::timestamptz, 'YYYY-MM-DD')\nFROM\n  (VALUES ($__timeFrom())) t(ts)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "2024-04-15",
+            "value": "2024-04-15"
+          },
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "edk32zh8spnnke"
+          },
+          "definition": "SELECT\n  TO_CHAR(ts::timestamptz, 'YYYY-MM-DD')\nFROM\n  (VALUES ($__timeTo())) t(ts)",
+          "hide": 2,
+          "includeAll": false,
+          "multi": false,
+          "name": "time_to",
+          "options": [],
+          "query": "SELECT\n  TO_CHAR(ts::timestamptz, 'YYYY-MM-DD')\nFROM\n  (VALUES ($__timeTo())) t(ts)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-30d/d",
+      "to": "now/d"
+    },
+    "timepicker": {
+      "hidden": true
+    },
+    "timezone": "",
+    "title": "Youtube Channel",
+    "uid": "m7BvUSxIk",
+    "version": 41,
+    "weekStart": ""
+  },
+  "folderUid": "",
+  "overwrite": true
+}

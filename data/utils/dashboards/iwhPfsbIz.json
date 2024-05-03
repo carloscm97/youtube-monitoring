@@ -1,0 +1,968 @@
+{
+  "dashboard": {
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [
+          "youtube"
+        ],
+        "targetBlank": false,
+        "title": "Navigate",
+        "tooltip": "",
+        "type": "dashboards",
+        "url": ""
+      }
+    ],
+    "liveNow": false,
+    "panels": [
+      {
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 28,
+        "panels": [],
+        "repeat": "channel_info__channel_name",
+        "title": "${channel_info__channel_name}",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-red",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 24,
+          "x": 0,
+          "y": 1
+        },
+        "id": 10,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^view_count$/",
+            "values": true
+          },
+          "showPercentChange": false,
+          "text": {
+            "titleSize": 15
+          },
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  vi.video_title,\n  vs.view_count\nFROM\n  youtube_stats.channel_info ci\nINNER JOIN\n  youtube_stats.video_info vi\nON\n  (vi.channel_id = ci.channel_id)\nINNER JOIN\n  youtube_stats.video_stats vs\nON\n  (vi.video_id = vs.video_id)\nWHERE\n  $__timeFilter(\"timestamp\") AND\n  ci.channel_name IN ($channel_info__channel_name) AND\n  vs.\"timestamp\" = (SELECT MAX(\"timestamp\") FROM youtube_stats.video_stats WHERE video_id = vi.video_id)\nORDER BY\n  vs.view_count DESC\nLIMIT 10\n",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-orange",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 24,
+          "x": 0,
+          "y": 6
+        },
+        "id": 41,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^view_count$/",
+            "values": true
+          },
+          "showPercentChange": false,
+          "text": {
+            "titleSize": 15
+          },
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  vi.video_title,\n  vs.view_count\nFROM\n  youtube_stats.channel_info ci\nINNER JOIN\n  youtube_stats.video_info vi\nON\n  (vi.channel_id = ci.channel_id)\nINNER JOIN\n  youtube_stats.video_stats vs\nON\n  (vi.video_id = vs.video_id)\nWHERE\n  $__timeFilter(\"timestamp\") AND\n  ci.channel_name IN ($channel_info__channel_name) AND\n  vs.\"timestamp\" = (SELECT MAX(\"timestamp\") FROM youtube_stats.video_stats WHERE video_id = vi.video_id)\nORDER BY\n  vs.view_count DESC\nLIMIT 10\nOFFSET 10\n",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-green",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 24,
+          "x": 0,
+          "y": 11
+        },
+        "id": 54,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^view_count$/",
+            "values": true
+          },
+          "showPercentChange": false,
+          "text": {
+            "titleSize": 15
+          },
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  vi.video_title,\n  vs.view_count\nFROM\n  youtube_stats.channel_info ci\nINNER JOIN\n  youtube_stats.video_info vi\nON\n  (vi.channel_id = ci.channel_id)\nINNER JOIN\n  youtube_stats.video_stats vs\nON\n  (vi.video_id = vs.video_id)\nWHERE\n  $__timeFilter(\"timestamp\") AND\n  ci.channel_name IN ($channel_info__channel_name) AND\n  vs.\"timestamp\" = (SELECT MAX(\"timestamp\") FROM youtube_stats.video_stats WHERE video_id = vi.video_id)\nORDER BY\n  vs.view_count DESC\nLIMIT 10\nOFFSET 20\n",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 3,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "locale"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 14,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        },
+        "id": 89,
+        "options": {
+          "legend": {
+            "calcs": [
+              "firstNotNull",
+              "lastNotNull"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true,
+            "sortBy": "First *",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "time_series",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "WITH cte_video_list AS (\nSELECT DISTINCT\n  vi.video_id,\n  vi.video_title,\n  vi.video_creation_date,\n  MAX(vs.view_count)\nFROM\n  youtube_stats.channel_info ci\nINNER JOIN\n  youtube_stats.video_info vi\nUSING\n  (channel_id)\nINNER JOIN\n  youtube_stats.video_stats vs\nUSING\n  (video_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  $__timeFilter(vs.\"timestamp\")\nGROUP BY\n  vi.video_id,\n  vi.video_title,\n  vi.video_creation_date\nORDER BY\n  MAX(vs.view_count) DESC\nLIMIT $limit\n), cte_tag AS (\nSELECT\n  vi.video_title,\n  MAX(vs.view_count) AS view_count,\n  tag\nFROM\n  cte_video_list vi\nINNER JOIN\n  youtube_stats.video_stats vs\nUSING\n  (video_id),\n  generate_series (\n    time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeFrom()::timestamp with time zone))\n    ), time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeTo()::timestamp with time zone))\n    ), '1 day'\n  ) tag\nWHERE\n  vs.timestamp >= tag AND\n  vs.timestamp <= tag + interval '1 day'\nGROUP BY\n  vi.video_title, tag\n)\nSELECT\n  video_title,\n  AVG(view_count) AS \"View Count\",\n  tag AS time\nFROM\n  cte_tag\nGROUP BY\n  video_title, tag\nORDER BY\n  time, MAX(view_count)",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Top $limit Videos",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "locale"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Recent Changes in Top"
+              },
+              "properties": [
+                {
+                  "id": "custom.hidden",
+                  "value": false
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "gradient",
+                    "type": "color-background"
+                  }
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "options": {
+                        "-": {
+                          "color": "super-light-green",
+                          "index": 2
+                        },
+                        "↑": {
+                          "color": "light-blue",
+                          "index": 1
+                        },
+                        "↑↑": {
+                          "color": "purple",
+                          "index": 0
+                        },
+                        "↓": {
+                          "color": "light-orange",
+                          "index": 3
+                        },
+                        "↓↓": {
+                          "color": "red",
+                          "index": 4
+                        }
+                      },
+                      "type": "value"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Video Title"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 531
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Video Creation Date"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 147
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Rank"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 59
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 14,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        },
+        "id": 130,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "10.4.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "WITH cte_video_list AS (\nSELECT DISTINCT\n  vi.video_title,\n  vi.video_creation_date,\n  MAX(vs.view_count) AS view_count\nFROM\n  youtube_stats.channel_info ci\nINNER JOIN\n  youtube_stats.video_info vi\nUSING\n  (channel_id)\nINNER JOIN\n  youtube_stats.video_stats vs\nUSING\n  (video_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  $__timeFilter(vs.\"timestamp\")\nGROUP BY\n  vi.video_id,\n  vi.video_title,\n  vi.video_creation_date\nORDER BY\n  MAX(vs.view_count) DESC\nLIMIT $limit\n), cte_rank AS (\nSELECT\n  video_title,\n  TO_CHAR(video_creation_date, 'YYYY-MM-DD') AS video_creation_date,\n  RANK() OVER (ORDER BY view_count DESC) AS rank_views,\n  RANK() OVER (ORDER BY video_creation_date ASC) AS rank_date\nFROM\n  cte_video_list\n)\nSELECT\n  video_title AS \"Video Title\",\n  video_creation_date AS \"Video Creation Date\",\n  rank_views AS \"Rank\",\n-- Ratio between video release date and position in the rankings\n  CASE\n    WHEN ((rank_date - rank_views)::DECIMAL)/$limit*100 >= 60 THEN '↑↑'\n    WHEN ((rank_date - rank_views)::DECIMAL)/$limit*100 >= 30 THEN '↑'\n    WHEN ((rank_date - rank_views)::DECIMAL)/$limit*100 >= 0 THEN '-'\n    WHEN ((rank_date - rank_views)::DECIMAL)/$limit*100 >= -30 THEN '-'\n    WHEN ((rank_date - rank_views)::DECIMAL)/$limit*100 >= -60 THEN '↓'\n    ELSE '↓↓'\n  END AS \"Recent Changes in Top\"\nFROM\n  cte_rank\nORDER BY\n  rank_views",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            },
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Ranking by Creation Date",
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 3,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": true,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "decimals": 0,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "locale"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 14,
+          "w": 12,
+          "x": 0,
+          "y": 30
+        },
+        "id": 73,
+        "options": {
+          "legend": {
+            "calcs": [
+              "firstNotNull",
+              "lastNotNull",
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true,
+            "sortBy": "First *",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "time_series",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "WITH cte_video_list AS (\nSELECT DISTINCT\n  vi.video_id,\n  vi.video_title,\n  vs.\"timestamp\",\n  vs.view_count\nFROM\n  youtube_stats.channel_info ci\nINNER JOIN\n  youtube_stats.video_info vi\nUSING\n  (channel_id)\nINNER JOIN\n  youtube_stats.video_stats vs\nUSING\n  (video_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  $__timeFilter(vs.\"timestamp\")\n), cte_tag AS (\nSELECT\n  tag,\n  vi.video_id,\n  vi.video_title,\n  MAX(vi.view_count) AS view_count\nFROM\n  cte_video_list vi,\n  generate_series (\n    time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeFrom()::timestamp with time zone))\n    ), time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeTo()::timestamp with time zone))\n    ), '1 day'\n  ) tag\nWHERE\n  vi.timestamp >= tag AND\n  vi.timestamp <= tag + interval '1 day'\nGROUP BY\n  tag, vi.video_id, vi.video_title\n), cte_lag AS (\nSELECT\n  ct.tag,\n  ct.video_id,\n  ct.video_title,\n  ct.view_count,\n  LAG(ct.view_count, -1) OVER w AS last_view_count,\n  LAG(ct.tag, -1) OVER w AS last_tag\nFROM\n  cte_tag ct\nWINDOW w AS (PARTITION BY ct.video_id ORDER BY ct.tag DESC)\n), cte_daily_views AS (\nSELECT\n  cl.tag,\n  cl.video_id,\n  cl.video_title,\n  (cl.view_count - cl.last_view_count)/(cl.tag::DATE - cl.last_tag::DATE) AS daily_views\nFROM\n  cte_lag cl\nWHERE\n  cl.last_view_count IS NOT NULL\n), cte_limit AS (\nSELECT DISTINCT\n  video_id,\n  MAX(daily_views)\nFROM\n  cte_daily_views\nGROUP BY\n  video_id\nORDER BY\n  MAX(daily_views) DESC\nLIMIT\n  $limit\n)\nSELECT\n  video_title,\n  AVG(daily_views) AS \"Daily Views\",\n  tag AS time\nFROM\n  cte_daily_views\nWHERE\n  video_id IN (SELECT video_id FROM cte_limit)\nGROUP BY\n  video_title, tag\nORDER BY\n  time",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Top $limit Daily Views Videos",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "edk32zh8spnnke"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 3,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": true,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "locale"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 14,
+          "w": 12,
+          "x": 12,
+          "y": 30
+        },
+        "id": 108,
+        "options": {
+          "legend": {
+            "calcs": [
+              "firstNotNull",
+              "lastNotNull"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true,
+            "sortBy": "First *",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "edk32zh8spnnke"
+            },
+            "format": "time_series",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "WITH cte_video_list AS (\nSELECT DISTINCT\n  vi.video_id,\n  vi.video_title,\n  vi.video_creation_date\nFROM\n  youtube_stats.channel_info ci\nINNER JOIN\n  youtube_stats.video_info vi\nUSING\n  (channel_id)\nINNER JOIN\n  youtube_stats.video_stats vs\nUSING\n  (video_id)\nWHERE\n  ci.channel_name IN ($channel_info__channel_name) AND\n  $__timeFilter(vs.\"timestamp\")\nORDER BY\n  video_creation_date DESC\nLIMIT $limit\n), cte_tag AS (\nSELECT\n  vi.video_title,\n  MAX(vs.view_count) AS view_count,\n  tag\nFROM\n  cte_video_list vi\nINNER JOIN\n  youtube_stats.video_stats vs\nUSING\n  (video_id),\n  generate_series (\n    time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeFrom()::timestamp with time zone))\n    ), time_bucket(\n      '1 day', \n      (select timezone('Europe/Madrid', $__timeTo()::timestamp with time zone))\n    ), '1 day'\n  ) tag\nWHERE\n  vs.timestamp >= tag AND\n  vs.timestamp <= tag + interval '1 day'\nGROUP BY\n  vi.video_title, tag\n)\nSELECT\n  video_title,\n  AVG(view_count) AS \"View Count\",\n  tag AS time\nFROM\n  cte_tag\nGROUP BY\n  video_title, tag\nORDER BY\n  time, MAX(view_count)",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Last $limit Videos",
+        "type": "timeseries"
+      }
+    ],
+    "schemaVersion": 39,
+    "tags": [
+      "youtube",
+      "channel"
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "Anitta",
+              "Bad Bunny",
+              "Feid",
+              "Shakira"
+            ],
+            "value": [
+              "Anitta",
+              "Bad Bunny",
+              "Feid",
+              "Shakira"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "edk32zh8spnnke"
+          },
+          "definition": "WITH cte_channel_name AS (\nSELECT\n  channel_name\nFROM\n  youtube_stats.channel_info\nORDER BY\n  channel_name ASC\n)\nSELECT\n  channel_name\nFROM\n  cte_channel_name\nUNION ALL\nSELECT\n 'no data' AS channel_name\nFROM\n  (SELECT 1) a\nLEFT JOIN\n  cte_channel_name b ON FALSE\nWHERE\n  NOT EXISTS (SELECT 1 FROM cte_channel_name)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Channel Name",
+          "multi": true,
+          "name": "channel_info__channel_name",
+          "options": [],
+          "query": "WITH cte_channel_name AS (\nSELECT\n  channel_name\nFROM\n  youtube_stats.channel_info\nORDER BY\n  channel_name ASC\n)\nSELECT\n  channel_name\nFROM\n  cte_channel_name\nUNION ALL\nSELECT\n 'no data' AS channel_name\nFROM\n  (SELECT 1) a\nLEFT JOIN\n  cte_channel_name b ON FALSE\nWHERE\n  NOT EXISTS (SELECT 1 FROM cte_channel_name)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": "20",
+            "value": "20"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "label": "Video Limit",
+          "multi": false,
+          "name": "limit",
+          "options": [
+            {
+              "selected": false,
+              "text": "5",
+              "value": "5"
+            },
+            {
+              "selected": false,
+              "text": "10",
+              "value": "10"
+            },
+            {
+              "selected": false,
+              "text": "15",
+              "value": "15"
+            },
+            {
+              "selected": true,
+              "text": "20",
+              "value": "20"
+            }
+          ],
+          "query": "5,10,15,20",
+          "queryValue": "",
+          "skipUrlSync": false,
+          "type": "custom"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-14d/d",
+      "to": "now/d"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Youtube Channel Analysis",
+    "uid": "iwhPfsbIz",
+    "version": 33,
+    "weekStart": ""
+  },
+  "folderUid": "",
+  "overwrite": true
+}
