@@ -20,4 +20,7 @@ folder_list = ['/grafana',
 
 for folder in folder_list:
     folder_path = data_dir + folder
-    os.makedirs(folder_path)
+    try:
+        os.makedirs(folder_path)
+    except OSError:
+        pass
