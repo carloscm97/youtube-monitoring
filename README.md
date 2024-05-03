@@ -30,6 +30,12 @@ git clone https://github.com/docker/awesome-compose.git
 
 ## 2.1. Docker boot
 
+Run script `utils/create_volumes.py` to create empty folders in which persistent data will be stored
+
+```bash
+python3 import_datasources_and_dashboards.py
+```
+
 Run docker compose file.
 
 ```bash
