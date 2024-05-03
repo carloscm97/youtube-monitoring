@@ -2,9 +2,7 @@
 
 Solution for automatically monitor statistics of YouTube channels and the videos belonging to those channels. The ETL process is carried out in **Apache Nifi**, the storage is made in a **PostgreSQL** database and the visualisation is handled by **Grafana + ECharts**. All these services run and communicate with each other through their respective **Docker** containers.
 
-![](docs/images/cover.png)
-
-----
+---
 
 # Contents
 
@@ -16,9 +14,9 @@ Solution for automatically monitor statistics of YouTube channels and the videos
 
 # 1. Requirements
 
-* Docker
+- Docker
 
-* Python3 (install *requests* library)
+- Python3 (install *requests* library)
 
 # 2. Installation
 
@@ -30,10 +28,10 @@ git clone https://github.com/docker/awesome-compose.git
 
 ## 2.1. Docker boot
 
-Run script `utils/create_volumes.py` to create empty folders in which persistent data will be stored
+Run script `utils/create_volumes.py` to create empty folders in which persistent data will be stored. (**important**: execute the script in `utils` folder)
 
 ```bash
-python3 import_datasources_and_dashboards.py
+python3 create_volumes.py
 ```
 
 Run docker compose file.
@@ -61,8 +59,6 @@ docker compose -f docker-compose.yml down
 2. Right click on the canvas. *'Upload template'* option. Select file `data/utils/nifi_youtube-stats.xml`.
 
 3. Drag *'Template'* from top navigation bar to the canvas. Select the template just uploaded.
-
-![](docs/images/nifi_general_overview.png)
 
 4. RIght click on the canvas. *'Variables'*. Set the following list of variables (*+* button to add each one):
 
@@ -140,11 +136,11 @@ An example configuration would be as follows:
 
 6. RIght click on the canvas. *'Configure'*. *'Controller Services'*. *+* button. Add a new *DistributedMapCacheServer* with default configuration (for any reason this service cannot be set by the template). Enable this service (*lightning* icon).
 
-![](docs/images/nifi_services.png)
+7. Still in *'Controller Services'*. Modify *DBCPConnectionPool*. *'Properties'*. *'Password'*. Set *nifi* as default password. *'Apply'*. Enable this service.
 
-1. Still in *'Controller Services'*. Modify *DBCPConnectionPool*. *'Properties'*. *'Password'*. Set *nifi* as default password. *'Apply'*. Enable this service.
-2. Enable the rest of services (*DistributedMapCacheClienteService_ApiKeyManagement_WaitNotify*, *AvroSchemaRegistry*, etc.). Before clicking, try to select *Scope*: *Service and referencing components* in order to enable in cascade all services dependent on it.
-3. To boot up all processors: RIght click on the canvas. *'Start'*. Optional: if you want to start the process now instead of waiting for the scheduler to take over (by default, hourly), go to '*Read Input Parameters FIle*' process group, stop *'GenerateFlowFile'* processor, right click on the processor and select *'Run Once'* .
+8. Enable the rest of services (*DistributedMapCacheClienteService_ApiKeyManagement_WaitNotify*, *AvroSchemaRegistry*, etc.). Before clicking, try to select *Scope*: *Service and referencing components* in order to enable in cascade all services dependent on it.
+
+9. To boot up all processors: RIght click on the canvas. *'Start'*. Optional: if you want to start the process now instead of waiting for the scheduler to take over (by default, hourly), go to '*Read Input Parameters FIle*' process group, stop *'GenerateFlowFile'* processor, right click on the processor and select *'Run Once'* .
 
 ## 2.3. Grafana configuration
 
@@ -164,53 +160,51 @@ Once the installation is finished, the Nifi background process will try every ho
 
 If we want to modify the scheduling of this process: **Read Input Parameters FIle** -> **GenerateFlowFile** -> **Scheduling** -> **Run Schedule**: Scheduled CRON, how often we want the monitoring process to be executed. The parameter *update_period_in_days* in input file has priority because, no matter how much this processor is initialised during the day, if a channel has already been monitored on the day or (*update_period_in_days* - 1) days before, it will be discarded and won't be monitorised until *update_period_in_days* have passed.
 
-**Note**: If *update_period_in_days* is set to 0 it means that there is no restraint of days between monitoring and thus monitoring will be performed according to the *CRON* configured in the Nifi GenerateFlowFile. 
+**Note**: If *update_period_in_days* is set to 0 it means that there is no restraint of days between monitoring and thus monitoring will be performed according to the *CRON* configured in the Nifi GenerateFlowFile.
 
 The operations performed in each processing group are explained by the Nifi notes placed on the canvas and the name assigned to each processor itself, as can be seen in the following example image:
 
-![](docs/images/nifi_process_group.png)
-
 The workflow of each processing group is summarised as follows:
 
-* **Read Input Parameters File**: Starts the monitoring process according to the schedule configured in the CRON. Loads the file *input_channel_info.json*.
+- **Read Input Parameters File**: Starts the monitoring process according to the schedule configured in the CRON. Loads the file *input_channel_info.json*.
 
-* **Get Channel Statistics**: Get information and statistics of each channel.
+- **Get Channel Statistics**: Get information and statistics of each channel.
   
-  * **Prepare API Request**: Split 'input_channel_info.json' into one FlowFile per channel and api key.
+  - **Prepare API Request**: Split 'input_channel_info.json' into one FlowFile per channel and api key.
   
-  * **Check if channel already in DB / already updated**: 
+  - **Check if channel already in DB / already updated**:
     
-    * Discard FlowFiles that are not needed to get statistics as it has already been done earlier in that day or in the last days (depending on *update_period_in_days*).  
+    - Discard FlowFiles that are not needed to get statistics as it has already been done earlier in that day or in the last days (depending on *update_period_in_days*).
     
-    * Wait-notify mechanism to control concurrency: all FlowFiles are queued in the *'Wait'* processor, when we finish storing all the information for a channel and its videos, this processor is notified to let the next FlowFile pass and continue the process of obtaining information and statistics.
+    - Wait-notify mechanism to control concurrency: all FlowFiles are queued in the *'Wait'* processor, when we finish storing all the information for a channel and its videos, this processor is notified to let the next FlowFile pass and continue the process of obtaining information and statistics.
     
-    * API Key Quota: the quota of this api key is checked in the `youtube_stats.api_key_quota` table (if the record exists), if this value is greater than 9200, the process is terminated here to avoid exceeding the quota.
+    - API Key Quota: the quota of this api key is checked in the `youtube_stats.api_key_quota` table (if the record exists), if this value is greater than 9200, the process is terminated here to avoid exceeding the quota.
     
-    * Routes the output to get the information of this channel if the *update_channel_info* option is active, otherwise it is routed directly to get the channel statistics.
+    - Routes the output to get the information of this channel if the *update_channel_info* option is active, otherwise it is routed directly to get the channel statistics.
   
-  * **Get Channel Info**: API Request to obtain Channel Information and store it in `youtube_stats.channel_info` table.
+  - **Get Channel Info**: API Request to obtain Channel Information and store it in `youtube_stats.channel_info` table.
   
-  * **Update Channel Stats**: API Request to obtain Channel Statistics and store it in `youtube_stats.channel_stats` table.
+  - **Update Channel Stats**: API Request to obtain Channel Statistics and store it in `youtube_stats.channel_stats` table.
 
-* **Get Video Statistics**: Get information and statistics of each video from a channel (that has passed the corresponding filters).
+- **Get Video Statistics**: Get information and statistics of each video from a channel (that has passed the corresponding filters).
   
-  * **Get Content Details**: Get playlist of videos uploaded to the channel, from which the ID of each video will be taken.
+  - **Get Content Details**: Get playlist of videos uploaded to the channel, from which the ID of each video will be taken.
   
-  * **Get Channel Content**: Loop through all the pages (each page contains 50 videos) to accumulate the complete list of videos on the channel.
+  - **Get Channel Content**: Loop through all the pages (each page contains 50 videos) to accumulate the complete list of videos on the channel.
   
-  * **Split Channel Content & Filter**: Split the flowfile containing the list of videos into one flowfile per video. The video release date filter is also applied with the *ts_from* and *ts_to* parameters specified in *input_channel_info.json*.
+  - **Split Channel Content & Filter**: Split the flowfile containing the list of videos into one flowfile per video. The video release date filter is also applied with the *ts_from* and *ts_to* parameters specified in *input_channel_info.json*.
   
-  * **Check if video already in DB**: Routes the output to get the information of this video if the *update_video_info* option is active, otherwise it is routed directly to get the video statistics.
+  - **Check if video already in DB**: Routes the output to get the information of this video if the *update_video_info* option is active, otherwise it is routed directly to get the video statistics.
   
-  * **Get Video Info**: API Request to obtain Video Information and store it in `youtube_stats.video_info` table.
+  - **Get Video Info**: API Request to obtain Video Information and store it in `youtube_stats.video_info` table.
   
-  * **Update Video Stats**: 
+  - **Update Video Stats**:
     
-    * API Request to obtain Video Statistics and store it in `youtube_stats.video_stats` table. 
+    - API Request to obtain Video Statistics and store it in `youtube_stats.video_stats` table.
     
-    * Wait for the insertion of all videos from the same channel to merge and proceed to notify the *'Wait'* process that the process for this channel has finished and can continue with the next one in the queue. 
+    - Wait for the insertion of all videos from the same channel to merge and proceed to notify the *'Wait'* process that the process for this channel has finished and can continue with the next one in the queue.
     
-    * An estimate is also made of the quota used for this channel based on the videos monitored and the `youtube_stats.api_key_quota` table is updated.
+    - An estimate is also made of the quota used for this channel based on the videos monitored and the `youtube_stats.api_key_quota` table is updated.
 
 ## 3.2. TimescaleDB design
 
@@ -287,45 +281,21 @@ The workflow of each processing group is summarised as follows:
 
 Basic information on each of the selected channels
 
-![](docs/images/grafana_dashboard_youtube_channel.png)
-
 ### Youtube Channel Analysis
 
 Overview of the videos belonging to the channel.
-
-![](docs/images/grafana_dashboard_youtube_channel_analysis_1.png)
-
-![](docs/images/grafana_dashboard_youtube_channel_analysis_2.png)
 
 ### Youtube Channel Analysis Advanced
 
 More detailed view of the videos belonging to the channel.
 
-![](docs/images/grafana_dashboard_youtube_channel_analysis_advanced_1.png)
-
-![](docs/images/grafana_dashboard_youtube_channel_analysis_advanced_2.png)
-
-![](docs/images/grafana_dashboard_youtube_channel_analysis_advanced_3.png)
-
 ### Youtube Channel Videos
 
 Compare the statistics of selected videos from two different channels with each other.
 
-![](docs/images/grafana_dashboard_youtube_channel_videos_1.gif)
-
-![](docs/images/grafana_dashboard_youtube_channel_videos_2.png)
-
-![](docs/images/grafana_dashboard_youtube_channel_videos_3.gif)
-
 ### Error Messages & Api Key Quota
 
 Overview of error messages produced in the Nifi ETL process and API Key status and quota.
-
-![](docs/images/grafana_dashboard_error_messages_api_key_quota.png)
-
-![](docs/images/grafana_dashboard_error_messages_api_key_quota_2.png)
-
-![](docs/images/grafana_dashboard_error_messages_api_key_quota_3.png)
 
 # 4. Troubleshooting
 
@@ -333,22 +303,22 @@ Overview of error messages produced in the Nifi ETL process and API Key status a
 
 The following ports will be used:
 
-* **Nifi**: *8080*
+- **Nifi**: *8080*
 
-* **Timescaledb**: *5432*
+- **Timescaledb**: *5432*
 
-* **Kafka**: *9092*
+- **Kafka**: *9092*
 
-* **Grafana**: *3000*
+- **Grafana**: *3000*
 
 If any of these ports are already occupied, appropriate modifications in *docker-compose.yml* must be made to allow the container to use another port that is not in use.
 
 ### Nifi
 
-* Modify *docker-compose.yml*:
-  * Modify the *8080* on the left in `nifi.port` since it refers to the host port,  do not modify the 8080 on the right since it refers to the container internal port.
-  * Modify the *8080* in `nifi.environment.NIFI_WEB_PROXY_HOST`.
-* The Nifi URL will change to `http://localhost:(new_port)/nifi/`
+- Modify *docker-compose.yml*:
+  - Modify the *8080* on the left in `nifi.port` since it refers to the host port, do not modify the 8080 on the right since it refers to the container internal port.
+  - Modify the *8080* in `nifi.environment.NIFI_WEB_PROXY_HOST`.
+- The Nifi URL will change to `http://localhost:(new_port)/nifi/`
 
 ### Timescaledb
 
@@ -362,8 +332,10 @@ If any of these ports are already occupied, appropriate modifications in *docker
 
 ### Grafana
 
-* Modify *docker-compose.yml*: *3000* on the left in `grafana.port`.
+- Modify *docker-compose.yml*: *3000* on the left in `grafana.port`.
+
 - The Grafana URL will change to `http://localhost:(new_port)/grafana`
+
 - Edit `utils/import_datasources_and_dashboards.py` , host variable with new port established.
 
 ## 4.2. Data Ingestion
@@ -406,9 +378,9 @@ data/
 │  ├─ datalog/
 ```
 
-**Note**: Do not delete folders, only their contents. 
+**Note**: Do not delete folders, only their contents.
 
-The script in `utils/clear_volumes.py` can be used for this purpose. You will probably need root permissions to run it and not have permissions problems.
+The script in `utils/clear_volumes.py` can be used for this purpose. You will probably need root permissions to run it and not have permissions problems. (**important**: execute the script in `utils` folder)
 
 ```bash
 sudo python3 clear_volumes.py
