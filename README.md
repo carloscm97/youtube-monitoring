@@ -12,7 +12,7 @@ Solution for automatically monitor statistics of YouTube channels and the videos
 2. [Installation](#2-installation)
 3. [Documentation](#3-documentation)
 4. [Troubleshooting](#4-troubleshooting)
-5. [Clean restart / Uninstall](#5-clean-restart-/-uninstall)
+5. [Clean restart / Uninstall](#5-clean-restart--uninstall)
 
 # 1. Requirements
 
