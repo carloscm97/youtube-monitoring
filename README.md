@@ -323,6 +323,8 @@ Compare the statistics of selected videos from two different channels with each 
 
 Overview of error messages produced in the Nifi ETL process and API Key status and quota.
 
+![](docs/images/grafana_dashboard_error_messages_api_key_quota.png)
+
 ![](docs/images/grafana_dashboard_error_messages_api_key_quota_2.png)
 
 ![](docs/images/grafana_dashboard_error_messages_api_key_quota_3.png)
