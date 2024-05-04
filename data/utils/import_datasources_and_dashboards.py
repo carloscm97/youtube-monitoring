@@ -3,7 +3,7 @@ import os
 import requests
 
 host = "http://localhost:3000"
-script_dir = os.getcwd()
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
 headers = {"Content-Type": "application/json"}
 auth = ("admin","admin123456789")

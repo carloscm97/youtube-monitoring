@@ -1,7 +1,7 @@
 import os
 
-os.chdir("..")
-data_dir = os.getcwd()
+script_directory = os.path.dirname(os.path.abspath(__file__))
+data_dir = os.path.abspath(os.path.join(script_directory, os.pardir))
 folder_list = ['/grafana',
                '/kafka/data',
                '/kafka/secrets',

@@ -30,7 +30,7 @@ git clone https://github.com/docker/awesome-compose.git
 
 ## 2.1. Docker boot
 
-Run script `utils/create_volumes.py` to create empty folders in which persistent data will be stored. (**important**: execute the script in `utils` folder)
+Run script `utils/create_volumes.py` to create empty folders in which persistent data will be stored.
 
 ```bash
 python3 create_volumes.py
@@ -64,7 +64,7 @@ docker compose -f docker-compose.yml down
 
 ![](docs/images/nifi_general_overview.png)
 
-1. RIght click on the canvas. *'Variables'*. Set the following list of variables (*+* button to add each one):
+4. RIght click on the canvas. *'Variables'*. Set the following list of variables (*+* button to add each one):
 
 | name                       | value                     |
 | -------------------------- | ------------------------- |
@@ -410,7 +410,7 @@ data/
 
 **Note**: Do not delete folders, only their contents.
 
-The script in `utils/clear_volumes.py` can be used for this purpose. You will probably need root permissions to run it and not have permissions problems. (**important**: execute the script in `utils` folder)
+The script in `utils/clear_volumes.py` can be used for this purpose. You will probably need root permissions to run it and not have permissions problems.
 
 ```bash
 sudo python3 clear_volumes.py
